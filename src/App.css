@@ -1,38 +1,73 @@
-.App {
+.menu-bar {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.menu-bar > div {
+  width: 150px;
+  padding: 12px;
+  cursor: pointer;
+  user-select: none;
+  background-color: #eeeeee;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.menu-bar > div:hover {
+  background-color: #cccccc;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.menu-bar > .selected {
+  background-color: #dddddd;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.wrapper {
+  padding: 12px;
   display: flex;
+  width: 300px;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.product-item {
+  display: flex;
+  background-color: #eeeeee;
+  margin: 2px 0px 2px 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.product-item > div {
+  width: 50%;
+  margin: 4px;
+}
+
+.product-item > div:last-child {
+  text-align: right;
+}
+
+.product-form {
+  background-color: #eeeeee;
+  padding: 12px;
+}
+
+.product-form input[type=text],
+.product-form input[type=number] {
+  border: none;
+  outline: none;
+  padding: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.product-form button {
+  border: none;
+  outline: none;
+  padding: 6px;
+  width: 50%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  float: right;
+  background-color: #dddddd;
+}
+
+.product-form button:disabled {
+  opacity: 0.6;
 }
