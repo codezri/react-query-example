@@ -4,7 +4,7 @@ import {
   QueryClientProvider,
   useQuery,
   useQueryClient,
-  useMutation } from 'react-query';
+  useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
 import './App.css';
@@ -19,7 +19,7 @@ async function addProduct(product) {
 }
 
 function useProducts() {
-  const { data, isLoading, error } = useQuery('products', () => fetcher('/products'));
+  const { data, isLoading, error } = useQuery(['products'], () => fetcher('/products'));
   return {
     products: data,
     isLoading,
@@ -55,29 +55,26 @@ function AddProduct({ goToList }) {
   const queryClient = useQueryClient();
   const mutation = useMutation((product) => addProduct(product), {
     onMutate: async (product) => {
-      await queryClient.cancelQueries('products');
+      await queryClient.cancelQueries(['products']);
 
-      const previousValue = queryClient.getQueryData('products');
-      queryClient.setQueryData('products', [...previousValue, product])
-
+      const previousValue = queryClient.getQueryData(['products']);
+      queryClient.setQueryData(['products'], (old) => [...old, product]);
       return previousValue;
     },
     onError: (err, variables, previousValue) =>
-      queryClient.setQueryData('products', previousValue),
-    onSettled: () => {
-      queryClient.invalidateQueries('products')
-    },
+      queryClient.setQueryData(['products'], previousValue),
+    onSettled: () => queryClient.invalidateQueries(['products'])
   });
 
   const [product, setProduct] = useState({
-    id: products.length + 1,
+    id: products ? products.length + 1 : 0,
     name: '',
     price: null
   });
   const [disabled, setDisabled] = useState(true);
 
   async function handleAdd() {
-    goToList();
+    setTimeout(goToList);
     mutation.mutate(product);
   }
 
