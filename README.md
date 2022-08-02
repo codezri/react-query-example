@@ -1,6 +1,6 @@
 # react-query-example
 
-A simple product store built with React Query caching
+A simple product store built with TanStack React Query caching
 
 ## How to run the project?
 
